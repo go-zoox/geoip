@@ -3,7 +3,6 @@ package geoip
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net"
 	"strings"
 
@@ -19,7 +18,35 @@ type Address struct {
 	Coordinates []float64
 }
 
-func GetAddress(ip string, language ...interface{}) (address *Address, addressErr error) {
+type GeoIP struct {
+	db     *geoip2.Reader
+	config *Config
+}
+
+type Config struct {
+	DatabaseFilePath string
+}
+
+func New(c *Config) *GeoIP {
+	return &GeoIP{
+		config: c,
+	}
+}
+
+func (g *GeoIP) Load() error {
+	db, err := geoip2.Open(g.config.DatabaseFilePath)
+	if err != nil {
+		return err
+	}
+	g.db = db
+	return nil
+}
+
+func (g *GeoIP) Destroy() error {
+	return g.db.Close()
+}
+
+func (g *GeoIP) GetAddress(ip string, language ...interface{}) (address *Address, addressErr error) {
 	defer func() {
 		if err := recover(); err != nil {
 			// log.Println(err)
@@ -27,20 +54,19 @@ func GetAddress(ip string, language ...interface{}) (address *Address, addressEr
 		}
 	}()
 
+	if g.db == nil {
+		return nil, errors.New("geoip database not initialized, you can download database file from https://github.com/go-zoox/geoip/releases/download/v0.0.3/GeoLite2-City.mmdb")
+	}
+
 	langugaes := []string{"zh-CN", "en-US"}
 	lang := "zh-CN"
 	if len(language) > 0 {
 		lang = language[0].(string)
 	}
 
-	db, err := geoip2.Open("data/GeoLite2-City.mmdb")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
 	// If you are using strings that may be invalid, check that ip is not nil
 	_ip := net.ParseIP(ip)
-	record, err := db.City(_ip)
+	record, err := g.db.City(_ip)
 	if err != nil {
 		return nil, err
 	}
