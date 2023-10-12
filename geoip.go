@@ -9,6 +9,9 @@ import (
 	"github.com/oschwald/geoip2-golang"
 )
 
+const LanguageZhCN = "zh-CN"
+const LanguageEnUS = "en-US"
+
 type Address struct {
 	Country     string
 	Province    string
@@ -46,7 +49,7 @@ func (g *GeoIP) Destroy() error {
 	return g.db.Close()
 }
 
-func (g *GeoIP) GetAddress(ip string, language ...interface{}) (address *Address, addressErr error) {
+func (g *GeoIP) GetAddress(ip string, language ...string) (address *Address, addressErr error) {
 	defer func() {
 		if err := recover(); err != nil {
 			// log.Println(err)
@@ -58,10 +61,10 @@ func (g *GeoIP) GetAddress(ip string, language ...interface{}) (address *Address
 		return nil, errors.New("geoip database not initialized, you can download database file from https://github.com/go-zoox/geoip/releases/download/v0.0.3/GeoLite2-City.mmdb")
 	}
 
-	langugaes := []string{"zh-CN", "en-US"}
-	lang := "zh-CN"
+	langugaes := []string{LanguageZhCN, LanguageEnUS}
+	lang := LanguageZhCN
 	if len(language) > 0 {
-		lang = language[0].(string)
+		lang = language[0]
 	}
 
 	// If you are using strings that may be invalid, check that ip is not nil
@@ -72,7 +75,7 @@ func (g *GeoIP) GetAddress(ip string, language ...interface{}) (address *Address
 	}
 
 	switch lang {
-	case "zh-CN":
+	case LanguageZhCN:
 		return &Address{
 			Province:    record.Subdivisions[0].Names["zh-CN"],
 			City:        record.City.Names["zh-CN"],
@@ -84,7 +87,7 @@ func (g *GeoIP) GetAddress(ip string, language ...interface{}) (address *Address
 				record.Location.Longitude,
 			},
 		}, nil
-	case "en-US":
+	case LanguageEnUS:
 		return &Address{
 			Province:    record.Subdivisions[0].Names["en"],
 			City:        record.City.Names["en"],
