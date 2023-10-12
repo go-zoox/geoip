@@ -15,8 +15,6 @@ import (
 	"github.com/go-zoox/zoox/defaults"
 )
 
-var GeoIPDatabaseHomeDir = fs.JoinHomeDir(".cache/geoip")
-var GeoIPDatabaseFilePath = fs.JoinPath(GeoIPDatabaseHomeDir, "GeoLite2-City.mmdb")
 var GeoIPDatabaseDownloadURL = "https://github.com/go-zoox/geoip/releases/download/v0.0.3/GeoLite2-City.mmdb"
 
 func RegistryServer(app *cli.MultipleProgram) {
@@ -39,10 +37,24 @@ func RegistryServer(app *cli.MultipleProgram) {
 }
 
 func server(port int) error {
-	if ok := fs.IsExist(GeoIPDatabaseHomeDir); !ok {
-		if err := fs.Mkdirp(GeoIPDatabaseHomeDir); err != nil {
-			return err
+	var GeoIPDatabaseHomeDirs = []string{
+		fs.JoinPath("/etc", "geoip"),
+		fs.JoinHomeDir(".geoip"),
+	}
+	var GeoIPDatabaseFilePath string
+	var err error
+
+	for _, dir := range GeoIPDatabaseHomeDirs {
+		if ok := fs.IsExist(dir); !ok {
+			if err = fs.Mkdirp(dir); err != nil {
+				continue
+			}
 		}
+
+		GeoIPDatabaseFilePath = fs.JoinPath(dir, "GeoLite2-City.mmdb")
+	}
+	if GeoIPDatabaseFilePath == "" {
+		return fmt.Errorf("failed to create geoip database dir(err: %s)", err)
 	}
 
 	if ok := fs.IsExist(GeoIPDatabaseFilePath); !ok {

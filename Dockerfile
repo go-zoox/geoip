@@ -24,6 +24,8 @@ LABEL MAINTAINER="Zero<tobewhatwewant@gmail.com>"
 
 LABEL org.opencontainers.image.source="https://github.com/go-zoox/geoip"
 
+ADD https://github.com/go-zoox/geoip/releases/download/v0.0.3/GeoLite2-City.mmdb /etc/geoip/GeoLite2-City.mmdb
+
 ARG VERSION=latest
 
 ENV GEOIP_VERSION=${VERSION}
