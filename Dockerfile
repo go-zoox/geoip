@@ -15,23 +15,21 @@ RUN CGO_ENABLED=0 \
   go build \
   -trimpath \
   -ldflags '-w -s -buildid=' \
-  -v -o geoip ./cmd/geoip
+  -v -o alioss-cdn .
 
 # Server
 FROM whatwewant/alpine:v3.17-1
 
 LABEL MAINTAINER="Zero<tobewhatwewant@gmail.com>"
 
-LABEL org.opencontainers.image.source="https://github.com/go-zoox/geoip"
-
-ADD https://github.com/go-zoox/geoip/releases/download/v0.0.3/GeoLite2-City.mmdb /etc/geoip/GeoLite2-City.mmdb
+LABEL org.opencontainers.image.source="https://github.com/go-zoox/alioss-cdn"
 
 ARG VERSION=latest
 
-ENV GEOIP_VERSION=${VERSION}
+ENV VERSION=${VERSION}
 
-COPY --from=builder /build/geoip /bin
+COPY --from=builder /build/alioss-cdn /bin
 
-RUN geoip --version
+RUN alioss-cdn --version
 
-CMD geoip server
+CMD alioss-cdn server

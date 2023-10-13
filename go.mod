@@ -1,15 +1,12 @@
-module github.com/go-zoox/geoip
+module github.com/go-zoox/alioss-cdn
 
 go 1.20
 
 require (
+	github.com/aliyun/aliyun-oss-go-sdk v2.2.9+incompatible
 	github.com/go-zoox/cli v1.3.6
 	github.com/go-zoox/core-utils v1.2.14
-	github.com/go-zoox/fetch v1.7.16
-	github.com/go-zoox/fs v1.3.13
-	github.com/go-zoox/logger v1.4.6
 	github.com/go-zoox/zoox v1.12.24
-	github.com/oschwald/geoip2-golang v1.6.1
 )
 
 require (
@@ -45,6 +42,8 @@ require (
 	github.com/go-zoox/dotenv v1.2.3 // indirect
 	github.com/go-zoox/encoding v1.2.1 // indirect
 	github.com/go-zoox/errors v1.0.2 // indirect
+	github.com/go-zoox/fetch v1.7.16 // indirect
+	github.com/go-zoox/fs v1.3.13 // indirect
 	github.com/go-zoox/gzip v1.0.0 // indirect
 	github.com/go-zoox/headers v1.0.8 // indirect
 	github.com/go-zoox/i18n v1.0.3 // indirect
@@ -53,6 +52,7 @@ require (
 	github.com/go-zoox/jsonrpc v1.2.2 // indirect
 	github.com/go-zoox/jwt v1.3.0 // indirect
 	github.com/go-zoox/kv v1.5.9 // indirect
+	github.com/go-zoox/logger v1.4.6 // indirect
 	github.com/go-zoox/proxy v1.5.6 // indirect
 	github.com/go-zoox/pubsub v1.2.2 // indirect
 	github.com/go-zoox/random v1.0.4 // indirect
@@ -73,7 +73,6 @@ require (
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
-	github.com/oschwald/maxminddb-golang v1.8.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/redis/go-redis/v9 v9.1.0 // indirect
@@ -92,6 +91,7 @@ require (
 	golang.org/x/net v0.16.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.14.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
