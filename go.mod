@@ -4,7 +4,11 @@ go 1.20
 
 require (
 	github.com/go-zoox/cli v1.3.6
-	github.com/go-zoox/zoox v1.12.22
+	github.com/go-zoox/core-utils v1.2.14
+	github.com/go-zoox/fetch v1.7.16
+	github.com/go-zoox/fs v1.3.13
+	github.com/go-zoox/logger v1.4.6
+	github.com/go-zoox/zoox v1.12.24
 	github.com/oschwald/geoip2-golang v1.6.1
 )
 
@@ -33,7 +37,6 @@ require (
 	github.com/go-zoox/concurrency v1.2.0 // indirect
 	github.com/go-zoox/config v1.2.10 // indirect
 	github.com/go-zoox/cookie v1.2.0 // indirect
-	github.com/go-zoox/core-utils v1.2.14 // indirect
 	github.com/go-zoox/counter v1.2.1 // indirect
 	github.com/go-zoox/cron v1.1.2 // indirect
 	github.com/go-zoox/crypto v1.1.8 // indirect
@@ -42,8 +45,6 @@ require (
 	github.com/go-zoox/dotenv v1.2.3 // indirect
 	github.com/go-zoox/encoding v1.2.1 // indirect
 	github.com/go-zoox/errors v1.0.2 // indirect
-	github.com/go-zoox/fetch v1.7.16 // indirect
-	github.com/go-zoox/fs v1.3.13 // indirect
 	github.com/go-zoox/gzip v1.0.0 // indirect
 	github.com/go-zoox/headers v1.0.8 // indirect
 	github.com/go-zoox/i18n v1.0.3 // indirect
@@ -52,7 +53,6 @@ require (
 	github.com/go-zoox/jsonrpc v1.2.2 // indirect
 	github.com/go-zoox/jwt v1.3.0 // indirect
 	github.com/go-zoox/kv v1.5.9 // indirect
-	github.com/go-zoox/logger v1.4.6 // indirect
 	github.com/go-zoox/proxy v1.5.6 // indirect
 	github.com/go-zoox/pubsub v1.2.2 // indirect
 	github.com/go-zoox/random v1.0.4 // indirect
