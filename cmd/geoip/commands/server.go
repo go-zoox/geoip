@@ -51,7 +51,10 @@ func server(port int) error {
 			}
 		}
 
-		GeoIPDatabaseFilePath = fs.JoinPath(dir, "GeoLite2-City.mmdb")
+		path := fs.JoinPath(dir, "GeoLite2-City.mmdb")
+		if ok := fs.IsExist(path); ok {
+			GeoIPDatabaseFilePath = path
+		}
 	}
 	if GeoIPDatabaseFilePath == "" {
 		return fmt.Errorf("failed to create geoip database dir(err: %s)", err)
