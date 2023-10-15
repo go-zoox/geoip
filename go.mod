@@ -8,7 +8,7 @@ require (
 	github.com/go-zoox/fetch v1.7.16
 	github.com/go-zoox/fs v1.3.13
 	github.com/go-zoox/logger v1.4.6
-	github.com/go-zoox/zoox v1.12.24
+	github.com/go-zoox/zoox v1.12.25
 	github.com/oschwald/geoip2-golang v1.6.1
 )
 
