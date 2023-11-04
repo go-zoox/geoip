@@ -101,8 +101,17 @@ func server(port int) error {
 		if err := ctx.Cache().Get(ip, address); err != nil {
 			address, err = gps.GetAddress(ip)
 			if err != nil {
-				ctx.Logger.Infof("invalid ip address: %s (err: %s)", ip, err)
-				ctx.Error(http.StatusBadRequest, fmt.Sprintf("invalid ip address: %s", ip))
+				ctx.Logger.Infof("unknown ip address: %s (err: %s)", ip, err)
+				// ctx.Error(http.StatusBadRequest, fmt.Sprintf("invalid ip address: %s", ip))
+
+				ctx.JSON(http.StatusOK, zoox.H{
+					"Country":     "unknown",
+					"Province":    "unknown",
+					"City":        "unknown",
+					"CountryCode": "unknown",
+					"TimeZone":    "unknown",
+					"Coordinates": []float64{0, 0},
+				})
 				return
 			}
 
